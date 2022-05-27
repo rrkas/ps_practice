@@ -1,0 +1,21 @@
+{{ define "navbar" }}
+<div class="navbar fixed-top navbar-light bg-light navbar-expand-md">
+    <a class="navbar-brand" href="/">
+        <i class="fa fa-comments-o"></i>
+        PS Practice
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/">All</a></li>
+            <li class="nav-item"><a class="nav-link" href="?reverse=true">Latest</a></li>
+            <li class="nav-item"><a class="nav-link" href="?level=0">Easy</a></li>
+            <li class="nav-item"><a class="nav-link" href="?level=1">Medium</a></li>
+            <li class="nav-item"><a class="nav-link" href="?level=2">Hard</a></li>
+        </ul>
+    </div>
+</div>
+{{ end }}

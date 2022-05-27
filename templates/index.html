@@ -1,0 +1,21 @@
+{{ define "content" }}
+
+<div>
+    <span style="display:flex">
+        {{ if gt .pageNum 1 }}
+        <a class="btn btn-primary" href="?pageNum={{prev .pageNum}}&pageSize={{.pageSize}}">&lt;</a>
+        {{ end }}
+        <span style="flex: 1; text-align: center;" class="center">Questions</span>
+        {{ if eq .pageSize .lenq }}
+        <a class="btn btn-primary" href="?pageNum={{next .pageNum}}&pageSize={{.pageSize}}">&gt;</a>
+        {{ end }}
+    </span>
+</div>
+<div class="row">
+    {{ range .Questions }}
+
+    {{ template "question-row" . }}
+
+    {{ end }}
+</div>
+{{ end }}

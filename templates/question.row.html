@@ -1,0 +1,13 @@
+{{ define "question-row" }}
+
+<div class="col-6">
+    <div class="card mt-1 pl-1 pr-1 pt-1 pb-1">
+        <h6><a href="/questions/{{.ID}}">{{ .Title }}</a></h6>
+        <span style="display: flex; font-size: 14px;">
+            <span style="flex: 1;">{{ .LevelString }}</span>
+            <span>{{ .DateTimeAgo }}</span>
+        </span>
+    </div>
+</div>
+
+{{ end }}

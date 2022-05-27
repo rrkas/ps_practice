@@ -1,0 +1,47 @@
+{{ define "content" }}
+
+{{if .question}}
+
+<div class="row">
+    <div class="col-12">
+        <h4>{{.question.Title}}</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-sm-12 mb-5">
+        <span style="display: flex;">
+            <span style="flex: 1;"><b>{{ .question.LevelString }}</b></span>
+            <span>{{ .question.DateTimeString }} ({{ .question.DateTimeAgo }})</span>
+        </span>
+        {{.question.Statement}}
+        <hr>
+        <h5>Input Format</h5>
+        <span style="white-space: pre-line;">{{.question.InputFormat}}</span>
+        <hr>
+        <h5>Output Format</h5>
+        <span style="white-space: pre-line;">{{.question.OutputFormat}}</span>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <table class="table table-sm table-striped">
+            <tr>
+                <th>Sample Inputs</th>
+                <th>Sample Outputs</th>
+            </tr>
+            {{range .question.SampleIOs}}
+            <tr class="tr">
+                <td><span style="white-space: pre-line;">{{.Input}}</span></td>
+                <td><span style="white-space: pre-line;">{{.Output}}</span></td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+</div>
+
+{{else}}
+
+<h5>Oops! Something went wrong!</h5>
+{{.error}}
+
+{{end}}
+
+{{ end }}
