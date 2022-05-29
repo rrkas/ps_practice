@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/url"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/rrkas/ps_practice/data"
@@ -150,4 +153,52 @@ func (q *Question) DateTimeString() string {
 	)
 	// fmt.Println(s)
 	return s
+}
+
+func ParseQuestionForm(values url.Values) (q Question) {
+	if values.Has("Title") {
+		q.Title = values.Get("Title")
+	}
+	if values.Has("Statement") {
+		q.Statement = values.Get("Statement")
+	}
+	if values.Has("InputFormat") {
+		q.InputFormat = values.Get("InputFormat")
+	}
+	if values.Has("OutputFormat") {
+		q.OutputFormat = values.Get("OutputFormat")
+	}
+	if values.Has("Level") {
+		level, err := strconv.Atoi(values.Get("Level"))
+		if err != nil {
+			log.Println(err)
+		} else {
+			q.Level = int64(level)
+		}
+	}
+	var ios []IO
+
+	for i := 0; i < 3; i++ {
+		var sampleInput, sampleOutput, description string
+		siField := fmt.Sprintf("SampleInput%v", i)
+		soField := fmt.Sprintf("SampleOutput%v", i)
+		descField := fmt.Sprintf("Explanation%v", i)
+		if values.Has(siField) {
+			sampleInput = strings.Trim(values.Get(siField), " ")
+		}
+		if values.Has(soField) {
+			sampleOutput = strings.Trim(values.Get(soField), " ")
+		}
+		if values.Has(descField) {
+			description = strings.Trim(values.Get(descField), " ")
+		}
+		if len(sampleInput) > 0 && len(sampleOutput) > 0 {
+			t := IO{sampleInput, sampleOutput, description}
+			ios = append(ios, t)
+		}
+	}
+
+	q.SampleIOs = ios
+	q.DateTime = time.Now()
+	return
 }

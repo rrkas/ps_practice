@@ -26,11 +26,13 @@
             <tr>
                 <th>Sample Inputs</th>
                 <th>Sample Outputs</th>
+                <th>Explanation</th>
             </tr>
             {{range .question.SampleIOs}}
             <tr class="tr">
                 <td><span style="white-space: pre-line;">{{.Input}}</span></td>
                 <td><span style="white-space: pre-line;">{{.Output}}</span></td>
+                <td>{{.Explanation}}</td>
             </tr>
             {{end}}
         </table>

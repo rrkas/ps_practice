@@ -1,12 +1,14 @@
 package routes
 
 import (
+	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/rrkas/ps_practice/models"
 	"github.com/rrkas/ps_practice/utils"
 )
 
@@ -56,4 +58,31 @@ func QuestionErrorPage(w http.ResponseWriter, r *http.Request, ID interface{}, e
 		},
 		template.FuncMap{},
 	)
+}
+
+func QuestionNewPage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	GenerateHTML(
+		w,
+		nil,
+		[]string{
+			"layout",
+			"question.form",
+			"navbar.home",
+		},
+		template.FuncMap{},
+	)
+}
+
+func QuestionSavePage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	formData := r.Form
+	q := models.ParseQuestionForm(formData)
+	str, err := json.Marshal(q)
+	log.Println(string(str))
+	q.AddInDB(utils.DB)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
